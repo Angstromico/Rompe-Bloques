@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rompe Ladrillos</title>
+    <style>
+        #pantallaJuego {
+            display: block;
+            border: 1px solid black;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        img {
+            display: none;
+        }
+        .fail {
+            animation: color 1.5s infinite alternate;
+        }
+        @keyframes color {
+            to {
+                background-color: red;
+            }
+        }
+    </style>
+</head>
+<body id="body">
+    <audio data-song src="sounds/coin.mp3" id="coin"></audio>
+    <audio data-song src="sounds/init.wav" id="init"></audio>
+    <audio data-song src="sounds/beaker.wav" id="beaker"></audio>
+    <audio data-song src="sounds/bombsiren.mp3" id="siren"></audio>
+    <audio data-song src="sounds/laser.wav" id="laser"></audio>
+    <audio data-song src="sounds/pink.mp3" id="pink"></audio>
+    <audio src="sounds/yes.wav" id="yes"></audio>
+    <audio data-song src="sounds/epicwrait.mp3" id="epic"></audio>
+    <audio data-song src="sounds/goinghigher.mp3" id="hight"></audio>
+    <audio data-song src="sounds/halfgame.mp3" id="shot"></audio>
+    <audio data-song src="sounds/piano.mp3" id="piano"></audio>
+    <audio data-song src="sounds/Lost-Jungle.mp3" id="jungla"></audio>
+    <audio data-song src="sounds/moonlight.mp3" id="luna"></audio>
+    <audio data-song src="sounds/rock.mp3" id="rock"></audio>
+    <audio src="sounds/Bad.mp3" id="bad"></audio>
+    <img src="img/creepy.png" alt="bola" id="balon">
+    <img src="img/descarga.png" alt="bola" id="ladrillo">
+    <canvas id="pantallaJuego" width="800" height="600"></canvas>
+    <script src="java.js" type="module">
+    </script> 
+    <!--<script src="paddle.js""></script> 
+    <script src="input.js"></script>
+    <script src="balon.js"></script>
+    <script src="juego.js"></script>
+    <script src="ladrillo.js"></script>
+    <script src="niveles.js"></script>
+    <script src="colisionador.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>
