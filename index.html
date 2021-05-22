@@ -10,6 +10,8 @@
             border: 1px solid black;
             margin-left: auto;
             margin-right: auto;
+            width: 90%;
+            height: 100%;
         }
         img {
             display: none;
@@ -21,6 +23,9 @@
             to {
                 background-color: red;
             }
+        }
+        img #cuadro {
+            opacity: 0;
         }
     </style>
 </head>
@@ -41,8 +46,9 @@
     <audio data-song src="sounds/rock.mp3" id="rock"></audio>
     <audio src="sounds/Bad.mp3" id="bad"></audio>
     <img src="img/creepy.png" alt="bola" id="balon">
-    <img src="img/descarga.png" alt="bola" id="ladrillo">
-    <canvas id="pantallaJuego" width="800" height="600"></canvas>
+    <img src="img/descarga.png" alt="ladrillo" id="ladrillo">
+    <img src="img/square.png" alt="cuadro" id="cuadro">
+    <canvas id="pantallaJuego" width="800" height="490"></canvas>
     <script src="java.js" type="module">
     </script> 
     <!--<script src="paddle.js""></script> 
