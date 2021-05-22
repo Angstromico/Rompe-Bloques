@@ -3,7 +3,8 @@ import InputHandler from '/input.js'
 import Balon from '/balon.js';
 import Ladrillo from '/ladrillo.js';
 import {crearNivel, nivel1, nivel2, nivel3, nivel4} from '/niveles.js';
-const GAMESTATE = {
+import Sector1 from '/sectores.js';
+const GAMESTATE = { 
     PAUSED: 0,
     RUNNING: 1,
     MENU: 2,
@@ -19,6 +20,7 @@ export default class Juego {
         this.gameState = GAMESTATE.MENU;
         this.balon = new Balon(this);
         this.paddle = new Paddle(this);
+        this.sector1 = new Sector1(this);
         this.juegoObt = []; 
         this.ladrillos = [];
         this.niveles = [nivel1, nivel2, nivel3, nivel4];
@@ -75,7 +77,7 @@ export default class Juego {
         //this.ladrillo = new Ladrillo(this, {x: 20, y: 20});
         this.ladrillos = crearNivel(this, this.niveles[this.nivelActual]);
         this.balon.reseteo();
-        this.juegoObt = [this.paddle, this.balon];
+        this.juegoObt = [this.paddle, this.balon, this.sector1];
         this.gameState = GAMESTATE.RUNNING;
         this.musica();
         this.body;
@@ -99,6 +101,12 @@ export default class Juego {
     if(this.gameState === GAMESTATE.RUNNING) {
         this.bad.pause();
         song.play();
+        }*/
+        if(this.gameState === GAMESTATE.MENU) {
+            this.body.addEventListener('click', ()=> this.inicio());
+        } 
+        /*if(this.gameState === GAMESTATE.RUNNING) {
+            this.sector1.addEventListener('click', ()=> console.log('Izquierda'));
         }*/
         if(this.vidas === 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.PAUSED || this.gameState === GAMESTATE.MENU || this.gameState === GAMESTATE.GAMEOVER) return;
