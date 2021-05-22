@@ -4,7 +4,7 @@ let ctxt = canvas.getContext('2d');
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
 const gameWidth = 0.8*windowWidth;
-const gameHeight = 1.2*windowHeight;
+const gameHeight = windowHeight;
 //ctxt.fillStyle = '#538dfb'
 //ctxt.fillRect(300, 200, 200, 200);
 const juego = new Juego(gameWidth, gameHeight);

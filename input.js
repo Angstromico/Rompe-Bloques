@@ -1,5 +1,4 @@
 import Juego from "./juego.js";
-
 //import Paddle from '/paddle.js';
 export default class InputHandler {
     constructor(Paddle, Juego) {
