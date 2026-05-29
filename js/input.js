@@ -1,5 +1,5 @@
 import Juego from "./juego.js";
-//import Paddle from '/paddle.js';
+//import Paddle from './paddle.js';
 export default class InputHandler {
     constructor(Paddle, Juego) {
         document.addEventListener('keydown', e => {

@@ -1,4 +1,4 @@
-import {detectaColisiones} from '/colisionador.js';
+import {detectaColisiones} from './colisionador.js';
 export default class Ladrillo {
     constructor(Juego, position) {
         this.image = document.getElementById('ladrillo'); 

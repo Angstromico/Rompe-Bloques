@@ -1,9 +1,9 @@
-import Paddle from '/paddle.js';
-import InputHandler from '/input.js'
-import Balon from '/balon.js';
-import Ladrillo from '/ladrillo.js';
-import {crearNivel, nivel1, nivel2, nivel3, nivel4} from '/niveles.js';
-import Sector1 from '/sectores.js';
+import Paddle from './paddle.js';
+import InputHandler from './input.js'
+import Balon from './balon.js';
+import Ladrillo from './ladrillo.js';
+import {crearNivel, nivel1, nivel2, nivel3, nivel4} from './niveles.js';
+import Sector1 from './sectores.js';
 const GAMESTATE = { 
     PAUSED: 0,
     RUNNING: 1,

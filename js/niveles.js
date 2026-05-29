@@ -1,4 +1,4 @@
-import Ladrillo from '/ladrillo.js';
+import Ladrillo from './ladrillo.js';
 const windowWidth = window.innerWidth;
 const windowHeight = window.innerHeight;
 const gameWidth = 0.8*windowWidth;

@@ -1,4 +1,4 @@
-import Juego from '/juego.js';
+import Juego from './juego.js';
 const canvas = document.getElementById('pantallaJuego');
 let ctxt = canvas.getContext('2d');
 const windowWidth = window.innerWidth;

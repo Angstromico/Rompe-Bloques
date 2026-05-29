@@ -1,4 +1,4 @@
-import {detectaColisiones} from '/colisionador.js';
+import {detectaColisiones} from './colisionador.js';
 export default class Balon {
     constructor(Juego) {
         this.gameWidth = Juego.gameWidth;
