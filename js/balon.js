@@ -23,29 +23,30 @@ export default class Balon {
     //console.log(this.Juego.paddle.position.x);
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
-    //Rebote de Pelota en las paredes izquierda y derecha
-    if(this.position.x + this.size > this.gameWidth || this.position.x < 0) {
-        this.speed.x = -this.speed.x;
-        this.laser.play();
-    }
-    //Rebote de Pelota en la pared de arriba.
-    if(this.position.y < 0) {
-        this.speed.y = -this.speed.y;
-        this.laser.play();
-    }
-    //bola toca el fondo.
-    if(this.position.y + this.size > this.gameHeight) {
-        this.Juego.vidas--;
-        this.reseteo();
-        this.body.classList.add('fail');
-        this.alert.play();
-        console.log(this.body);
-    }
-    //Detectar Colisiones on paddle
-    if(detectaColisiones(this, this.Juego.paddle)) {
-        this.speed.y = -this.speed.y;
-        this.position.y = this.Juego.paddle.position.y - this.size;
-        this.beaker.play();
-    }
+        //Rebote de Pelota en las paredes izquierda y derecha
+        if(this.position.x + this.size > this.gameWidth || this.position.x < 0) {
+            this.speed.x = -this.speed.x;
+            this.Juego.playSound(this.laser);
+        }
+        //Rebote de Pelota en la pared de arriba.
+        if(this.position.y < 0) {
+            this.speed.y = -this.speed.y;
+            this.Juego.playSound(this.laser);
+        }
+        //bola toca el fondo.
+        if(this.position.y + this.size > this.gameHeight) {
+            this.Juego.vidas--;
+            this.reseteo();
+            this.body.classList.add('fail');
+            this.Juego.playSound(this.alert);
+            console.log(this.body);
+        }
+        //Detectar Colisiones on paddle
+        if(detectaColisiones(this, this.Juego.paddle)) {
+            this.speed.y = -this.speed.y;
+            this.position.y = this.Juego.paddle.position.y - this.size;
+            this.Juego.playSound(this.beaker);
+        }
+
   }
 }

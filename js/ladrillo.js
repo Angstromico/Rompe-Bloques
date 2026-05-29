@@ -15,7 +15,7 @@ export default class Ladrillo {
         if(detectaColisiones(this.Juego.balon, this)) {
             this.Juego.balon.speed.y = -this.Juego.balon.speed.y;
             this.marketForDeletion = true;
-            this.coin.play();
+            this.Juego.playSound(this.coin);
         }
     }
     draw(ctxt) {

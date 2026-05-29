@@ -41,9 +41,59 @@ export default class Juego {
         this.playList = [this.init, this.pink, this.epic, this.rock,
         this.jungla, this.luna, this.shot, this.piano, this.hight];
         this.cancionInicial = this.playList[0];
-        //this.playList =  document.querySelectorAll('[data-song]');
+        
+        this.soundEnabled = true;
+        this.menus = {
+            start: document.getElementById('start-menu'),
+            pause: document.getElementById('pause-menu'),
+            gameover: document.getElementById('gameover-menu')
+        };
+        this.buttons = {
+            start: document.getElementById('start-button'),
+            resume: document.getElementById('resume-button'),
+            restart: document.getElementById('restart-button'),
+            soundStart: document.getElementById('sound-toggle-start'),
+            soundPause: document.getElementById('sound-toggle-pause')
+        };
+
+        this.setupEventListeners();
         new InputHandler(this.paddle, this);
     } 
+
+    setupEventListeners() {
+        this.buttons.start.addEventListener('click', () => this.inicio());
+        this.buttons.resume.addEventListener('click', () => this.pausa());
+        this.buttons.restart.addEventListener('click', () => this.reiniciar());
+        this.buttons.soundStart.addEventListener('click', () => this.toggleSound('start'));
+        this.buttons.soundPause.addEventListener('click', () => this.toggleSound('pause'));
+    }
+
+    toggleSound(menuType) {
+        this.soundEnabled = !this.soundEnabled;
+        const btn = menuType === 'start' ? this.buttons.soundStart : this.buttons.soundPause;
+        btn.textContent = `Sonido: ${this.soundEnabled ? 'ON' : 'OFF'}`;
+    }
+
+    updateMenuVisibility() {
+        if (this.menus.start) this.menus.start.style.display = this.gameState === GAMESTATE.MENU ? 'flex' : 'none';
+        if (this.menus.pause) this.menus.pause.style.display = this.gameState === GAMESTATE.PAUSED ? 'flex' : 'none';
+        if (this.menus.gameover) this.menus.gameover.style.display = this.gameState === GAMESTATE.GAMEOVER ? 'flex' : 'none';
+    }
+
+    reiniciar() {
+        this.nivelActual = 0;
+        this.vidas = 4;
+        this.gameState = GAMESTATE.MENU;
+        this.updateMenuVisibility();
+        this.inicio();
+    }
+
+    playSound(element) {
+        if (this.soundEnabled) {
+            element.play();
+        }
+    }
+
     getRandomN() {
         return Math.floor(Math.random()*this.playList.length);
         }
@@ -67,48 +117,25 @@ export default class Juego {
             for(i ; i < this.playList.length; i++) {
                 this.playList[i].addEventListener('ended', () => {
                     song = this.playList[this.getRandomN()];
-                    song.play();
+                    this.playSound(song);
                 })
-        }
-            this.cancionInicial.play();
+            }
+            this.playSound(this.cancionInicial);
         } 
     inicio() {
         if(this.gameState !== GAMESTATE.MENU && this.gameState !== GAMESTATE.NEWLEVEL) return;
-        //this.ladrillo = new Ladrillo(this, {x: 20, y: 20});
         this.ladrillos = crearNivel(this, this.niveles[this.nivelActual]);
         this.balon.reseteo();
         this.juegoObt = [this.paddle, this.balon, this.sector1];
         this.gameState = GAMESTATE.RUNNING;
         this.musica();
-        this.body;
-        //this.manejadorMusical();
+        this.updateMenuVisibility();
     }
     update(deltaT) {
-        //this.paddle.update(deltaT);
-        //this.update(deltaT);
-        /*if(this.gameState === GAMESTATE.PAUSED) {
-            this.cancionInicial.pause();
-        } else {
-            if(this.cancionInicial) {
-                this.cancionInicial.play();
-            }
+        if(this.vidas === 0) {
+            this.gameState = GAMESTATE.GAMEOVER;
+            this.updateMenuVisibility();
         }
-        if(this.gameState === GAMESTATE.PAUSED) {
-            this.bad.play();
-            //console.log(bad.currentTime);
-            song.pause();
-    }
-    if(this.gameState === GAMESTATE.RUNNING) {
-        this.bad.pause();
-        song.play();
-        }*/
-        if(this.gameState === GAMESTATE.MENU) {
-            this.body.addEventListener('click', ()=> this.inicio());
-        } 
-        /*if(this.gameState === GAMESTATE.RUNNING) {
-            this.sector1.addEventListener('click', ()=> console.log('Izquierda'));
-        }*/
-        if(this.vidas === 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.PAUSED || this.gameState === GAMESTATE.MENU || this.gameState === GAMESTATE.GAMEOVER) return;
         [...this.juegoObt, ...this.ladrillos].forEach(element => element.update(deltaT));
         this.ladrillos = this.ladrillos.filter(obj => !obj.marketForDeletion); 
@@ -116,10 +143,10 @@ export default class Juego {
             console.log('pasaste de nivel');
             this.nivelActual++;
             for(i = 0; i < this.playList.length; i++) {
-                if(this.playList[i].play()) {
+                if(this.playList[i].paused === false) {
                     this.playList[i].pause();
                 }
-        }
+            }
             this.gameState = GAMESTATE.NEWLEVEL;
             this.inicio();
         } 
@@ -131,42 +158,8 @@ export default class Juego {
         }
     }
     draw(ctxt) {
-        //this.paddle.draw(ctxt);
-        //this.balon.draw(ctxt);
         [...this.juegoObt, ...this.ladrillos].forEach(element => element.draw(ctxt));
-        if(this.gameState === GAMESTATE.PAUSED) {
-                /*this.bad.play();
-                    for(i = 0; i < this.playList.length; i++) {
-                        if(this.playList[i].play()) {
-                            this.playList[i].pause();
-                        } 
-            }*/
-            ctxt.rect(0, 0, this.gameWidth, this.gameHeight);
-            ctxt.fillStyle = 'rgba(0, 0, 0, .5)';
-            ctxt.fill();
-            ctxt.font = '3rem Arial';
-            ctxt.fillStyle = 'white';
-            ctxt.textAlign='center';
-            ctxt.fillText('Pausa', this.gameWidth/2, this.gameHeight/2);          
-        }
-        if(this.gameState === GAMESTATE.MENU) {
-            ctxt.rect(0, 0, this.gameWidth, this.gameHeight);
-            ctxt.fillStyle = 'rgba(0, 0, 0)';
-            ctxt.fill();
-            ctxt.font = '3rem Arial';
-            ctxt.fillStyle = 'white';
-            ctxt.textAlign='center';
-            ctxt.fillText('Toque o Barra', this.gameWidth/2, this.gameHeight/2);          
-        }
-        if(this.gameState === GAMESTATE.GAMEOVER) {
-            ctxt.rect(0, 0, this.gameWidth, this.gameHeight);
-            ctxt.fillStyle = 'rgba(0, 0, 0)';
-            ctxt.fill();
-            ctxt.font = '3rem Arial';
-            ctxt.fillStyle = 'white';
-            ctxt.textAlign='center';
-            ctxt.fillText('Fin del Juego', this.gameWidth/2, this.gameHeight/2);          
-        }
+        // Canvas based text drawing removed for MENU and PAUSED as we use HTML overlays
     }
     pausa() {
         if(this.gameState == GAMESTATE.PAUSED) {
@@ -174,5 +167,6 @@ export default class Juego {
         } else {
             this.gameState = GAMESTATE.PAUSED;
         }
+        this.updateMenuVisibility();
     }
 }
