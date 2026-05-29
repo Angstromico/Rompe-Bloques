@@ -37,11 +37,3 @@ No requiere instalación de dependencias. Para jugar:
 
 1. Clona el repositorio o descarga los archivos.
 2. Abre el archivo `index.html` en cualquier navegador web moderno.
-
-## 📝 Sugerencias de Commits Profesionales
-
-Para este cambio de documentación, te sugiero los siguientes mensajes de commit siguiendo la convención de [Conventional Commits](https://www.conventionalcommits.org/):
-
-1. `docs: add README with project overview and directory structure`
-2. `docs: document project architecture and assets organization`
-3. `docs: create initial README documentation`
